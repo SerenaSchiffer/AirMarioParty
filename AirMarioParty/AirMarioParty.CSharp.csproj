@@ -61,11 +61,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-<<<<<<< HEAD
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\Scripts\PlayerCar.cs" />
-=======
     <Reference Include="websocket-sharp">
       <HintPath>Assets\AirConsole\plugins\websocket-sharp.dll</HintPath>
     </Reference>
@@ -231,11 +226,11 @@
     <Compile Include="Assets\AirConsole\scripts\DebugLevel.cs" />
     <Compile Include="Assets\AirConsole\scripts\Settings.cs" />
     <Compile Include="Assets\AirConsole\scripts\WebsocketListener.cs" />
+    <Compile Include="Assets\Scripts\PlayerCar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AirConsole\README.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
->>>>>>> 2208a1bb1dae438d805d84f4f536e22de6747861
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
