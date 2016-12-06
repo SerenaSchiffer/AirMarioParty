@@ -23,7 +23,14 @@ public class PlayerCar : MonoBehaviour {
 
         if(Input.GetAxis("Horizontal") != 0)
         {
-            transform.Rotate(new Vector3(0, 0, Input.GetAxis("Horizontal") * rotationSpeed));
+            transform.Rotate(new Vector3(0, 0, -Input.GetAxis("Horizontal") * rotationSpeed));
         }
 	}
+
+    void OnCollisionEnter2D()
+    {
+        Debug.Log(".");
+        transform.Rotate(new Vector3(0, 0, 180));
+        myRB2D.angularVelocity = 0;
+    }
 }
