@@ -14,22 +14,21 @@
      * Sets up the communication to the screen.
      */
     function init() {
-      airconsole = new AirConsole({"orientation": "landscape"});
-      airconsole.onMessage = function(from, data) {
-        if (from == AirConsole.SCREEN && data.vibrate) {
-          navigator.vibrate(data.vibrate);
-          console.log("Vibrating: " + data.vibrate);
+        airconsole = new AirConsole({ "orientation": "landscape" });
+        airconsole.onMessage = function (from, data) {
+            var el = document.getElementById("color");
+            el.style.backgroundColor = data;
         }
-      }
-      airconsole.onActivePlayersChange = function(player_number) {
+    }
+     /* airconsole.onActivePlayersChange = function(player_number) {
         updateText(player_number);
-      }
+      
       airconsole.onReady = function() {
         updateText();
       }
-    }
+    }*/
 
-	function updateText(player_number) {
+	/*function updateText(player_number) {
 	  var div = document.getElementById("player_id");
       if (airconsole.getActivePlayerDeviceIds().length == 0) {
         div.innerHTML = "Waiting for more players.";
@@ -40,7 +39,7 @@
       } else if (player_number == 1) {
         div.innerHTML = "You are the player 2";
       };
-	}
+	}*/
 
     /**
      * Tells the screen to move the paddle of this player.
@@ -67,46 +66,37 @@
 
         .button {
             display: inline-block;
-            height: 85%;
-            background-color: #222;
             position: relative;
+            top:45%;
+            font-size:x-large;
+        }
+
+        .buton2{
+            float: right;
         }
 
         .button_label {
             position: absolute;
+            height: 100%;
+            width:100%;
             left: 0px;
-            width: 100%;
-            top:30%;
         }
 
-        .button-right{
-           width: 49%;
-           float: right;
-           right: 0px;   
-          }
-
-        .button-left{
-           width: 49%;
-           left: 0px;   
-          }
-
-        #player_id {
-            position: absolute;
-            top: 90%;
-            left: 0%;
-            width: 100%;
-            margin-top: -8px;
-            color: #777;
+        .image{
+            max-height:20%;
+            max-width:20%;
         }
+
     </style>
 </head>
 <body onload="init()">
-    <div class="button button-left" ontouchstart="move(1)" ontouchend="move(0)" onmousedown="move(1)" onmouseup="move(0)">
-        <div class="button_label"><img src="http://www.uidownload.com/files/102/573/112/small-arrow-left-icon.png" /></div>
+    <div id="color" class="button_label">
+        <div class="button">
+            <img class="image" src="http://www.free-icons-download.net/images/shake-it-mobile-phone-icon-94492.png"/>
+        </div>
+        <div>
+            Shake the phone as fast as you can
+        </div>
     </div>
-    <div  class="button button-right" ontouchstart="move(-1)" float:right ontouchend="move(0)" onmousedown="move(-1)" onmouseup="move(0)">
-        <div class="button_label"><img src="http://icons.iconarchive.com/icons/saki/nuoveXT/128/Small-arrow-right-icon.png" /></div>
-    </div>
-    <div id="player_id"></div>
 </body>
 </html>

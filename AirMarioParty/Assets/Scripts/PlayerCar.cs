@@ -42,6 +42,7 @@ public class PlayerCar : MonoBehaviour {
 
     void OnConnect(int device_id)
     {
+        AirConsole.instance.Message(device_id, "blue");
         if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0)
         {
             if (AirConsole.instance.GetControllerDeviceIds().Count >= 2)
