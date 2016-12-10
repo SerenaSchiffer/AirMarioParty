@@ -17,7 +17,6 @@ public class PlayerCar : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         nombreCornets = 0;
-        playerNumber = 1;
         myRB2D = GetComponent<Rigidbody2D>();
         AirConsole.instance.onMessage += OnMessage;
         AirConsole.instance.onConnect += OnConnect;
@@ -99,8 +98,24 @@ public class PlayerCar : MonoBehaviour {
 
     void OnCollisionEnter2D()
     {
-        Debug.Log(".");
         transform.Rotate(new Vector3(0, 0, 180));
         myRB2D.angularVelocity = 0;
+    }
+
+    void GagnerPoint()
+    {
+        nombreCornets++;
+        //if (nombreCornets == goalCornets)
+             //VICTOIRE 
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Collectible")
+        {
+            Destroy(other.gameObject);
+            GagnerPoint();
+            RandomIceCream.SpawnIceCreamStatic();
+        }
     }
 }
