@@ -3,21 +3,12 @@ using System.Collections;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
 
-public class PlayerCar : MonoBehaviour {
-    public static int goalCornets;
+public class ShakeScript : MonoBehaviour {
 
-    public int playerNumber;
-    public int nombreCornets;
-    public float speed = 3f;
-    public float turnAxis = 0;
-    public float rotationSpeed = 3f;
     public bool gameStarted = false;
 
-    private Rigidbody2D myRB2D;
-	// Use this for initialization
-	void Start () {
-        nombreCornets = 0;
-        myRB2D = GetComponent<Rigidbody2D>();
+    // Use this for initialization
+    void Start () {
         AirConsole.instance.onMessage += OnMessage;
         AirConsole.instance.onConnect += OnConnect;
         AirConsole.instance.onDisconnect += OnDisconnect;
@@ -25,18 +16,6 @@ public class PlayerCar : MonoBehaviour {
 
     void OnMessage(int device_id, JToken data)
     {
-        int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
-        if (active_player != -1)
-        {
-            if (active_player == 0)
-            {
-                turnAxis = -(float)data["move"];
-            }
-            /*if (active_player == 1)
-            {
-                this.racketRight.velocity = Vector3.up * (float)data["move"];
-            }*/
-        }
         float valeurZ = (float)data["Z"];
     }
 
@@ -64,10 +43,10 @@ public class PlayerCar : MonoBehaviour {
             {
                 StartGame();
             }
-           /* else
-            {
-                uiText.text = "NEED MORE PLAYERS";
-            }*/
+            /* else
+             {
+                 uiText.text = "NEED MORE PLAYERS";
+             }*/
         }
         StartGame();
     }
@@ -97,41 +76,8 @@ public class PlayerCar : MonoBehaviour {
         gameStarted = true;
     }
 
-
-
     // Update is called once per frame
     void Update () {
-        if (gameStarted)
-            myRB2D.velocity = transform.up * speed;
-        else
-            myRB2D.velocity = transform.up *  0f;
-
-        if (turnAxis != 0)
-        {
-            transform.Rotate(new Vector3(0, 0, -turnAxis * rotationSpeed));
-        }
+	
 	}
-
-    void OnCollisionEnter2D()
-    {
-        transform.Rotate(new Vector3(0, 0, 180));
-        myRB2D.angularVelocity = 0;
-    }
-
-    void GagnerPoint()
-    {
-        nombreCornets++;
-        //if (nombreCornets == goalCornets)
-             //VICTOIRE 
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.tag == "Collectible")
-        {
-            Destroy(other.gameObject);
-            GagnerPoint();
-            RandomIceCream.SpawnIceCreamStatic();
-        }
-    }
 }
