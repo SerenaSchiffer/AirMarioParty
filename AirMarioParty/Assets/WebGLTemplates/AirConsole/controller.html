@@ -14,12 +14,28 @@
      * Sets up the communication to the screen.
      */
     function init() {
+<<<<<<< HEAD
       airconsole = new AirConsole({"orientation": "landscape"});
       airconsole.onMessage = function(from, data) {
           var el = document.getElementById("color1");
           el.style.backgroundColor = data;
           var el = document.getElementById("color2");
           el.style.backgroundColor = data;
+=======
+        airconsole = new AirConsole({ "orientation": "landscape" });
+        airconsole.onMessage = function (from, data) {
+            var el = document.getElementById("color");
+            el.style.backgroundColor = data;
+            var el = document.getElementById("color2");
+            el.style.backgroundColor = data;
+        }
+    }
+     /* airconsole.onActivePlayersChange = function(player_number) {
+        updateText(player_number);
+      
+      airconsole.onReady = function() {
+        updateText();
+>>>>>>> 5ae31c9544237fc20b1a17832e9b675d3cd95b19
       }
     }
 
@@ -28,9 +44,33 @@
      * Tells the screen to move the paddle of this player.
      * @param amount
      */
+<<<<<<< HEAD
     function move(amount) {
       airconsole.message(AirConsole.SCREEN, {move: amount})
     }
+=======
+    App.prototype.onDeviceMotion = function moveAcc(data) {
+        airconsole.message(AirConsole.SCREEN, {Z: data.z })
+    }
+    /*var shake_detector = new AirConsoleShakeDetector({
+        // Threshold of moving the device
+        threshold: 5,
+        // Time in ms of how often the shake event triggers (ever 100 ms)
+        timeout: 100,
+        // Function to call when a shake was recognized
+        callback: function () {
+            console.log("Shake it ...");
+        }
+    });
+
+    // The shake state data is provided by the AirConsole API function:
+    airconsole.onDeviceMotion = function (o) {
+        shake_detector.onDeviceMotion(o);
+    };*/
+    /*function move(amount) {
+      airconsole.message(AirConsole.SCREEN, {move: amount})
+    }*/
+>>>>>>> 5ae31c9544237fc20b1a17832e9b675d3cd95b19
 
     </script>
     <style type="text/css">
@@ -55,6 +95,7 @@
 
         .button_label {
             position: absolute;
+<<<<<<< HEAD
             left: 0px;
             width: 100%;
             top:30%;
@@ -87,6 +128,31 @@
     </div>
     <div  id="color2" class="button button-right" ontouchstart="move(-1)" float:right ontouchend="move(0)" onmousedown="move(-1)" onmouseup="move(0)">
         <div class="button_label"><img src="http://icons.iconarchive.com/icons/saki/nuoveXT/128/Small-arrow-right-icon.png" /></div>
+=======
+            height: 100%;
+            width:100%;
+            left: 0px;
+            background-color:black;
+            top:30%;
+        }
+
+        .image{
+            max-height:20%;
+            max-width:20%;
+        }
+
+
+    </style>
+</head>
+<body  id="color" onload="init()">
+    <div id="color2" class="button_label">
+        <div class="button">
+            <img class="image" src="http://www.free-icons-download.net/images/shake-it-mobile-phone-icon-94492.png"/>
+        </div>
+        <div class="textShake">
+            Shake the phone as fast as you can
+        </div>
+>>>>>>> 5ae31c9544237fc20b1a17832e9b675d3cd95b19
     </div>
 </body>
 </html>
