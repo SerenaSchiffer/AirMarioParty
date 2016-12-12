@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 public class ShakeScript : MonoBehaviour {
 
     public bool gameStarted = false;
+    float valeurZ;
 
     // Use this for initialization
     void Start () {
@@ -16,7 +17,7 @@ public class ShakeScript : MonoBehaviour {
 
     void OnMessage(int device_id, JToken data)
     {
-        float valeurZ = (float)data["Z"];//peut etre int
+        valeurZ = (float)data["Z"];//peut etre int
     }
 
     void OnConnect(int device_id)
@@ -78,6 +79,7 @@ public class ShakeScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-	
+
+        Debug.Log(valeurZ);
 	}
 }
