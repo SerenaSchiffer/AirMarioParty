@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using NDream.AirConsole;
+using Newtonsoft.Json.Linq;
 
 public class CharacterSelectionCamera : MonoBehaviour {
 
@@ -10,10 +12,50 @@ public class CharacterSelectionCamera : MonoBehaviour {
 	void Start () {
         idPos = 1;
         idColor = 1;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        AirConsole.instance.onMessage += OnMessage;
+        AirConsole.instance.onConnect += OnConnect;
+        AirConsole.instance.onDisconnect += OnDisconnect;
+    }
+
+    void OnMessage(int device_id, JToken data)
+    {
+        if((int)data["UP"] == 1 && (int)data["DOWN"] == 1 && (int)data["RIGHT"] == 1 && (int)data["LEFT"] == 1)
+        {
+            //TERMINER !!!!!!!!!!!!!
+        }
+        else
+        {
+            if ((int)data["UP"] == 1)
+            {
+                IncreaseIdColor();
+            }
+            else if ((int)data["DOWN"] == 1)
+            {
+                DecreaseIdColor();
+            }
+            else if ((int)data["RIGHT"] == 1)
+            {
+                IncreaseIdPos();
+            }
+            else if ((int)data["LEFT"] == 1)
+            {
+                DecreaseIdPos();
+            }
+        }
+        
+    }
+
+    void OnConnect(int device_id)
+    {
+    }
+
+    void OnDisconnect(int device_id)
+    {
+    }
+
+
+    // Update is called once per frame
+    void Update () {
 	    if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             IncreaseIdPos();

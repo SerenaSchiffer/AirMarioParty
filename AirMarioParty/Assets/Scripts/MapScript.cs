@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using NDream.AirConsole;
+using Newtonsoft.Json.Linq;
 
 public class MapScript : MonoBehaviour {
 
@@ -24,10 +26,57 @@ public class MapScript : MonoBehaviour {
         }
 
         players[0].SetIsHisTurn(true);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        AirConsole.instance.onMessage += OnMessage;
+        AirConsole.instance.onConnect += OnConnect;
+        AirConsole.instance.onDisconnect += OnDisconnect;
+    }
+
+    void OnMessage(int device_id, JToken data)
+    {
+        if (device_id != -1)
+        {
+            if (device_id - 1 == idPlayerPlaying)
+            {
+                diceResult = Random.Range(1, 7);
+                GameObject uiCpt = GameObject.Find("Cpt");
+                Text textCpt = uiCpt.GetComponent<Text>();
+
+                textCpt.text = diceResult.ToString();
+
+                PrepareMovePlayer(diceResult);
+                ChangePlayer();
+            }
+        }
+
+        
+    }
+
+    void OnConnect(int device_id)
+    {
+        switch (device_id)
+        {
+            case 1:
+                AirConsole.instance.Message(device_id, "white");
+                break;
+            case 2:
+                AirConsole.instance.Message(device_id, "red");
+                break;
+            case 3:
+                AirConsole.instance.Message(device_id, "yellow");
+                break;
+            case 4:
+                AirConsole.instance.Message(device_id, "green");
+                break;
+        }
+    }
+
+    void OnDisconnect(int device_id)
+    {
+    }
+
+    // Update is called once per frame
+    void Update () {
 	    if (Input.GetKeyDown("space"))
         {
             diceResult = Random.Range(1, 7);

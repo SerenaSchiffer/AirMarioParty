@@ -16,7 +16,7 @@ public class ShakeScript : MonoBehaviour {
 
     void OnMessage(int device_id, JToken data)
     {
-        float valeurZ = (float)data["Z"];
+        float valeurZ = (float)data["Z"];//peut etre int
     }
 
     void OnConnect(int device_id)

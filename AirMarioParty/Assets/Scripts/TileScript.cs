@@ -21,11 +21,11 @@ public class TileScript : MonoBehaviour {
 	    switch (tileType)
         {
             case TileType.Start:
-                sp.color = Color.blue;
+                sp.color = Color.magenta;
                 break;
 
             case TileType.GainIceCream:
-                sp.color = Color.green;
+                sp.color = Color.yellow;
                 break;
 
             case TileType.LoseIceCream:
@@ -33,7 +33,7 @@ public class TileScript : MonoBehaviour {
                 break;
 
             case TileType.MiniGame:
-                sp.color = Color.magenta;
+                sp.color = Color.blue;
                 break;
         }
 	}

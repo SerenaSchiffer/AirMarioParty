@@ -37,7 +37,6 @@ public class PlayerCar : MonoBehaviour {
                 this.racketRight.velocity = Vector3.up * (float)data["move"];
             }*/
         }
-        float valeurZ = (float)data["Z"];
     }
 
     void OnConnect(int device_id)
