@@ -2,6 +2,7 @@
 using System.Collections;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
+using UnityEngine.UI;
 
 public class PlayerCar : MonoBehaviour {
     public static int goalCornets;
@@ -11,104 +12,30 @@ public class PlayerCar : MonoBehaviour {
     public float speed = 3f;
     public float turnAxis = 0;
     public float rotationSpeed = 3f;
-    public bool gameStarted = false;
+    public GameObject mySlider = null;
 
     private Rigidbody2D myRB2D;
 	// Use this for initialization
 	void Start () {
         nombreCornets = 0;
         myRB2D = GetComponent<Rigidbody2D>();
-        AirConsole.instance.onMessage += OnMessage;
-        AirConsole.instance.onConnect += OnConnect;
-        AirConsole.instance.onDisconnect += OnDisconnect;
-    }
-
-    void OnMessage(int device_id, JToken data)
-    {
-        int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
-        if (active_player != -1)
-        {
-            if (active_player == 0)
-            {
-                turnAxis = -(float)data["move"];
-            }
-            /*if (active_player == 1)
-            {
-                this.racketRight.velocity = Vector3.up * (float)data["move"];
-            }*/
-        }
-    }
-
-    void OnConnect(int device_id)
-    {
-        switch (device_id)
-        {
-            case 1:
-                AirConsole.instance.Message(device_id, "white");
-                break;
-            case 2:
-                AirConsole.instance.Message(device_id, "red");
-                break;
-            case 3:
-                AirConsole.instance.Message(device_id, "yellow");
-                break;
-            case 4:
-                AirConsole.instance.Message(device_id, "green");
-                break;
-        }
-
-        if (AirConsole.instance.GetActivePlayerDeviceIds.Count == 0)
-        {
-            if (AirConsole.instance.GetControllerDeviceIds().Count >= 2)
-            {
-                StartGame();
-            }
-           /* else
-            {
-                uiText.text = "NEED MORE PLAYERS";
-            }*/
-        }
-        StartGame();
-    }
-
-    void OnDisconnect(int device_id)
-    {
-        int active_player = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
-        if (active_player != -1)
-        {
-            if (AirConsole.instance.GetControllerDeviceIds().Count >= 2)
-            {
-                StartGame();
-            }
-            else
-            {
-                gameStarted = false;
-                /*AirConsole.instance.SetActivePlayers(0);
-                ResetBall(false);
-                uiText.text = "PLAYER LEFT - NEED MORE PLAYERS";*/
-            }
-        }
     }
 
     void StartGame()
     {
         AirConsole.instance.SetActivePlayers(AirConsole.instance.GetControllerDeviceIds().Count);
-        gameStarted = true;
     }
 
 
 
     // Update is called once per frame
     void Update () {
-        if (gameStarted)
-            myRB2D.velocity = transform.up * speed;
-        else
-            myRB2D.velocity = transform.up *  0f;
-
+        myRB2D.velocity = transform.up * speed;
         if (turnAxis != 0)
         {
             transform.Rotate(new Vector3(0, 0, -turnAxis * rotationSpeed));
         }
+        mySlider.transform.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));
 	}
 
     void OnCollisionEnter2D()
@@ -120,8 +47,13 @@ public class PlayerCar : MonoBehaviour {
     void GagnerPoint()
     {
         nombreCornets++;
-        //if (nombreCornets == goalCornets)
-             //VICTOIRE 
+        mySlider.GetComponent<Slider>().value += 0.1f;
+        if (nombreCornets == 10)
+        {
+            AirConsoleCarHelper.nombreFinis += 1;
+            Destroy(mySlider);
+            Destroy(this.gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -230,6 +230,7 @@
     <Compile Include="Assets\Scripts\MapScript.cs" />
     <Compile Include="Assets\Scripts\PlayerCar.cs" />
     <Compile Include="Assets\Scripts\PlayerScript.cs" />
+    <Compile Include="Assets\Scripts\Position.cs" />
     <Compile Include="Assets\Scripts\RandomIceCream.cs" />
     <Compile Include="Assets\Scripts\ShakeScript.cs" />
     <Compile Include="Assets\Scripts\ShakeThat.cs" />

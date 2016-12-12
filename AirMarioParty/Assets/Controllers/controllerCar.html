@@ -21,26 +21,8 @@
           var el = document.getElementById("color2");
           el.style.backgroundColor = data;
       }
-      airconsole.onActivePlayersChange = function(player_number) {
-        updateText(player_number);
-      }
-      airconsole.onReady = function() {
-        updateText();
-      }
     }
 
-	function updateText(player_number) {
-	  var div = document.getElementById("player_id");
-      if (airconsole.getActivePlayerDeviceIds().length == 0) {
-        div.innerHTML = "Waiting for more players.";
-      } else if (player_number == undefined) {
-        div.innerHTML = "This is a 2 player game";
-      } else if (player_number == 0) {
-        div.innerHTML = "You are the player 1";
-      } else if (player_number == 1) {
-        div.innerHTML = "You are the player 2";
-      };
-	}
 
     /**
      * Tells the screen to move the paddle of this player.
@@ -106,6 +88,5 @@
     <div  id="color2" class="button button-right" ontouchstart="move(-1)" float:right ontouchend="move(0)" onmousedown="move(-1)" onmouseup="move(0)">
         <div class="button_label"><img src="http://icons.iconarchive.com/icons/saki/nuoveXT/128/Small-arrow-right-icon.png" /></div>
     </div>
-    <div id="player_id"></div>
 </body>
 </html>

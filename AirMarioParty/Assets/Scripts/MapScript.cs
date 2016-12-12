@@ -11,9 +11,10 @@ public class MapScript : MonoBehaviour {
     Dictionary<int, PlayerScript> players = new Dictionary<int, PlayerScript>();
     int diceResult;
     int idPlayerPlaying;
+    int idPlayerActualTile;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         int cpt = 0;
         idPlayerPlaying = 0;
         playersFolder = GameObject.Find("Players");
@@ -99,8 +100,8 @@ public class MapScript : MonoBehaviour {
     {
         PlayerScript pScript = players[idPlayerPlaying];
         GameObject playerActualTile = pScript.actualTile;
-        int idPlayerActualTile = playerActualTile.GetComponent<TileScript>().idTile;
-
+        idPlayerActualTile = playerActualTile.GetComponent<TileScript>().idTile;
+        
         MovePlayer(idPlayerActualTile, movement, playerActualTile, pScript.GetComponentInParent<Transform>());
         pScript.PlayTile();
     }
@@ -113,6 +114,7 @@ public class MapScript : MonoBehaviour {
         for (int i = 1; i <= movement; i++)
         {
             idNextTile = GetIdNextTile(i, idPlayerActualTile);
+            Debug.Log(idPlayerActualTile);
 
             nextTile = GameObject.Find("tile (" + (idNextTile) + ")");
 

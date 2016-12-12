@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class PlayerScript : MonoBehaviour {
     private int nbIceCreamCone;
 
     public GameObject actualTile;
+    public Text txt;
 
 	// Use this for initialization
 	void Start () {
@@ -40,11 +42,16 @@ public class PlayerScript : MonoBehaviour {
     private void IncreaseNBIceCreamCone()
     {
         nbIceCreamCone += 5;
+        txt.text = "x " + nbIceCreamCone;
     }
 
     private void DecreaseNBIceCreamCone()
     {
         nbIceCreamCone -= 5;
+        if (nbIceCreamCone < 0)
+            nbIceCreamCone = 0;
+
+        txt.text = "x " + nbIceCreamCone;
     }
 
     public void SetIsHisTurn(bool isHisTurn)
